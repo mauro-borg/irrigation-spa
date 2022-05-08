@@ -1,0 +1,82 @@
+extends layout
+
+block content
+
+  div.row
+    div.col-md-4
+      h3 Irrigation controls
+      div.container.pb-3.pt-2
+        div.row.align-items-center
+          div.col Pump control 
+          div.col.btn-group(role="group")
+            input#btnradio1.btn-check(name="btnradio", type="radio")
+            label.btn.btn-outline-primary(for="btnradio1") auto
+            input#btnradio2.btn-check(name="btnradio", type="radio", checked)
+            label.btn.btn-outline-primary(for="btnradio2") manual
+      div.container.pb-3
+        div.row.align-items-center
+          div.col Pressure [mbar]
+          div.col
+            input#pressure-display.form-control(type="text", value="not ready",
+            disabled, readonly)
+        div.row.align-items-center
+          div.col Status
+          div.col
+            input#status-display.form-control(type="text", value="not ready",
+            disabled, readonly)
+      ul.list-group
+        li.list-group-item
+          div.form-check.form-switch
+            input#flexsw-r1.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="flexsw-r1") Relay 1 Pump 
+        li.list-group-item
+          div.form-check.form-switch
+            input#flexsw-r2.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="flexsw-r2") Relay 2 North-West zone
+        li.list-group-item
+          div.form-check.form-switch
+            input#flexsw-r3.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="flexsw-r3") Relay 3 North zone
+        li.list-group-item
+          div.form-check.form-switch
+            input#flexsw-r4.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="flexsw-r4") Relay 4 South-West zone
+        li.list-group-item
+          div.form-check.form-switch
+            input#flexsw-r5.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="flexsw-r5") Relay 5 South zone
+        li.list-group-item
+          div.form-check.form-switch
+            input#flexsw-r6.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="flexsw-r6") Relay 6
+        li.list-group-item
+          div.form-check.form-switch
+            input#flexsw-r7.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="flexsw-r7") Relay 7
+        li.list-group-item
+          div.form-check.form-switch
+            input#flexsw-r8.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="flexsw-r8") Relay 8
+
+
+
+    div.col-md-8
+      div.row
+        div.col
+          h3 Message log
+        div.col
+          div.float-end.form-check.form-switch
+            input#updsw.form-check-input(type="checkbox", role="switch")
+            label.form-check-label(for="updsw") auto-update
+            // button.btn.float-end.border Auto-update
+      textarea#messages.form-control(rows=15)
+      button.btn.btn-default#delete Delete all messages
+      h3 Post a message
+      textarea#message.form-control(rows=2)
+      button.btn.btn-primary#post Post
+      button.btn.btn-primary#getPressure Pressure update
+      button.btn.btn-primary#getStatus Status update
+      button.btn.btn-primary#getMessages Messages update
+  
+  script(src="/jquery.min.js", type="text/javascript")
+  script(src="/home.js", type="text/javascript")
