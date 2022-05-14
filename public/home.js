@@ -35,6 +35,44 @@ $(function() {
     });
   });
 
+  $("#toggle-r2").click(function() {
+    toggleRelayClick(2);
+  });
+  $("#toggle-r3").click(function() {
+    toggleRelayClick(3);
+  });
+  $("#toggle-r4").click(function() {
+    toggleRelayClick(4);
+  });
+  $("#toggle-r5").click(function() {
+    toggleRelayClick(5);
+  });
+  $("#toggle-r6").click(function() {
+    toggleRelayClick(6);
+  });
+  $("#toggle-r7").click(function() {
+    toggleRelayClick(7);
+  });
+  $("#toggle-r8").click(function() {
+    toggleRelayClick(8);
+  });
+
+  function toggleRelayClick(rnum) {
+    let targetstatus = "off";
+    if ($("#flexsw-r" + rnum.toString()).prop('checked') == false) {
+      targetstatus = "on";
+    }
+    $.ajax({
+      type: "GET",
+      url: "/api/relay/" + rnum.toString() + "/" + targetstatus,
+      contentType: "application/json",
+      success: function(data) {
+      }
+    });
+    setTimeout(getStatus, 1000);
+    setTimeout(getMessages, 3000);
+  }
+
   $("#getPressure").click(function() {
     // var message = {text: $("#message").val()};
     $.ajax({
@@ -48,14 +86,7 @@ $(function() {
   });
 
   $("#getStatus").click(function() {
-    $.ajax({
-      type: "GET",
-      url: "/api/status",
-      contentType: "application/json",
-      success: function(data) {
-        $("#status-display").val(data.status.toString());
-      }
-    });
+    getStatus();
   });
 
   $("#getMessages").click(function() {
@@ -80,6 +111,17 @@ $(function() {
     roomId = $(event.target).attr("data-room-id");
     getMessages();
   });
+
+  function getStatus() {
+    $.ajax({
+      type: "GET",
+      url: "/api/status",
+      contentType: "application/json",
+      success: function(data) {
+        $("#status-display").val(data.status.toString());
+      }
+    });
+  }
 
   function getMessages() {
     $.ajax({

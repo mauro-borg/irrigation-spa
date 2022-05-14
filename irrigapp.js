@@ -1,3 +1,4 @@
+
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
@@ -43,6 +44,24 @@ app.get('/api/pump_control_auto', function(req, res) {
 app.get('/api/pump_control_manual', function(req, res) {
 	mqttclient.publish('irrigation_cmd', 'pump_control_manual');
 	res.sendStatus(200);
+});
+
+app.get('/api/relay/:relayid/:relaystatus', function(req,res) {
+	var relay = req.params.relayid;
+	var targetstatus = req.params.relaystatus;
+	var validrelay = ['1','2','3','4','5','6','7','8'];
+	var validstatus = ['on','off'];
+	console.log(`relay: ${relay} - target status: ${targetstatus}`);
+	if (validrelay.includes(relay) &&
+	    validstatus.includes(targetstatus)) {
+		let pin = parseInt(relay) + 1;
+		let mqttmsg = pin.toString() + ':' + targetstatus;
+		console.log(`Sending command: ${mqttmsg}`)
+		mqttclient.publish('irrigation_cmd', mqttmsg);
+		res.sendStatus(202);
+	} else {
+		res.sendStatus(400);
+	}
 });
 
 app.get('/api/pressure', function(req, res) {
