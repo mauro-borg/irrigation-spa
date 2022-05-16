@@ -33,12 +33,12 @@ block content
           div.form-check.form-switch
             input#flexsw-r2.form-check-input(type="checkbox", role="switch")
             button#toggle-r2.btn.btn-outline-primary.btn-sm.me-2 R2 toggle
-            label.form-check-label(for="flexsw-r2") Relay 2 North-West zone
+            label.form-check-label(for="flexsw-r2") Relay 2 North zone
         li.list-group-item
           div.form-check.form-switch
             input#flexsw-r3.form-check-input(type="checkbox", role="switch")
             button#toggle-r3.btn.btn-outline-primary.btn-sm.me-2 R3 toggle
-            label.form-check-label(for="flexsw-r3") Relay 3 North zone
+            label.form-check-label(for="flexsw-r3") Relay 3 North-West zone
         li.list-group-item
           div.form-check.form-switch
             input#flexsw-r4.form-check-input(type="checkbox", role="switch")
@@ -53,7 +53,7 @@ block content
           div.form-check.form-switch
             input#flexsw-r6.form-check-input(type="checkbox", role="switch")
             button#toggle-r6.btn.btn-outline-primary.btn-sm.me-2 R6 toggle
-            label.form-check-label(for="flexsw-r6") Relay 6
+            label.form-check-label(for="flexsw-r6") Relay 6 North-West enable
         li.list-group-item
           div.form-check.form-switch
             input#flexsw-r7.form-check-input(type="checkbox", role="switch")
@@ -65,8 +65,6 @@ block content
             button#toggle-r8.btn.btn-outline-primary.btn-sm.me-2 R8 toggle
             label.form-check-label(for="flexsw-r8") Relay 8
 
-
-
     div.col-md-6
       div.row
         div.col
@@ -76,13 +74,10 @@ block content
             input#updsw.form-check-input(type="checkbox", role="switch")
             label.form-check-label(for="updsw") auto-update
             // button.btn.float-end.border Auto-update
-      textarea#messages.form-control(rows=15)
-      button.btn.btn-default#delete Delete all messages
-      h3 Post a message
-      textarea#message.form-control(rows=2)
-      button.btn.btn-primary#post Post
-      button.btn.btn-primary#getPressure Pressure update
-      button.btn.btn-primary#getStatus Status update
+      textarea#messages.form-control(rows=10)
+
+      button.btn.btn-primary.me-2#getPressure Pressure update
+      button.btn.btn-primary.me-2#getStatus Status update
       button.btn.btn-primary#getMessages Messages update
   
   script(src="/jquery.min.js", type="text/javascript")
