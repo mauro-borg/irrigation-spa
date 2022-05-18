@@ -113,6 +113,6 @@ mqttclient.on('message', function (topic, message) {
 })
 
 
-app.listen(3000, "0.0.0.0", function () {
+app.listen(3001, "0.0.0.0", function () {
 	console.log('irrigapp listening on port 3000.');
 });
