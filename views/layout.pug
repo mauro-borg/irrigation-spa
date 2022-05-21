@@ -5,8 +5,8 @@ html(lang='en')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title= title
-    link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/style.css')
+    link(rel='stylesheet', href=static_base_url+'/css/bootstrap.min.css')
+    link(rel='stylesheet', href=static_base_url+'/style.css')
   body
     nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
       .container-fluid
@@ -27,4 +27,4 @@ html(lang='en')
     .container
       .main-content
         block content
-    script(src='/js/bootstrap.bundle.min.js')
+    script(src=static_base_url+'/js/bootstrap.bundle.min.js')

@@ -11,13 +11,18 @@ var pressure = -1;
 var irrig_status = "";
 const messages = [];
 
+const base_url = "/irrig";
+const static_base_url = base_url + "/static";
+const appRouter = express.Router();
+
 app.set("views", "./views");
-app.set("view engine", "jade");
+app.set("view engine", "pug");
 
 // define dirs from which static content is served
-app.use(express.static("public"));
-app.use(express.static("node_modules/bootstrap/dist"));
-app.use(express.static("node_modules/jquery/dist"));
+// first (optional) arg is the url mount point
+app.use(static_base_url, express.static("public"));
+app.use(static_base_url, express.static("node_modules/bootstrap/dist"));
+app.use(static_base_url, express.static("node_modules/jquery/dist"));
 
 // bodyParser middleware switches parsing methods based on contentType
 // header
@@ -30,23 +35,25 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.get('/', function(req, res) {
-	// point to home.jade view (without extension because we set
-  // "view engine" to "jade")
-	res.render("home", {title: "Home"});
+app.use(base_url, appRouter);
+
+appRouter.get('/', function(req, res) {
+	// point to home.pug view (without extension because we set
+  // "view engine" to "pug")
+	res.render("home", {title: "Home", static_base_url: static_base_url});
 });
 
-app.get('/api/pump_control_auto', function(req, res) {
+appRouter.get('/api/pump_control_auto', function(req, res) {
 	mqttclient.publish('irrigation_cmd', 'pump_control_auto');
 	res.sendStatus(200);
 });
 
-app.get('/api/pump_control_manual', function(req, res) {
+appRouter.get('/api/pump_control_manual', function(req, res) {
 	mqttclient.publish('irrigation_cmd', 'pump_control_manual');
 	res.sendStatus(200);
 });
 
-app.get('/api/relay/:relayid/:relaystatus', function(req,res) {
+appRouter.get('/api/relay/:relayid/:relaystatus', function(req,res) {
 	var relay = req.params.relayid;
 	var targetstatus = req.params.relaystatus;
 	var validrelay = ['1','2','3','4','5','6','7','8'];
@@ -64,7 +71,7 @@ app.get('/api/relay/:relayid/:relaystatus', function(req,res) {
 	}
 });
 
-app.get('/api/pressure', function(req, res) {
+appRouter.get('/api/pressure', function(req, res) {
 	mqttclient.publish('irrigation_cmd', 'get_pressure');
 	if (pressure < 0) {
 	  res.sendStatus(102);
@@ -73,7 +80,7 @@ app.get('/api/pressure', function(req, res) {
 	}
 });
 
-app.get('/api/status', function(req, res) {
+appRouter.get('/api/status', function(req, res) {
 	mqttclient.publish('irrigation_cmd', 'get_status');
 	if (irrig_status == "") {
 	  res.sendStatus(102);
@@ -82,7 +89,7 @@ app.get('/api/status', function(req, res) {
 	}
 });
 
-app.get('/api/messages', function(req, res) {
+appRouter.get('/api/messages', function(req, res) {
 	res.json({msglist: messages});
 });
 

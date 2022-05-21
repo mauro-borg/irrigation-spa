@@ -1,9 +1,12 @@
 $(function() {
+  // base_url must match express app base_url
+  // is there a better way?
+  const base_url = "/irrig";
 
   $("#btnradio1").click(function() {
     $.ajax({
       type: "GET",
-      url: "/api/pump_control_auto",
+      url: base_url + "/api/pump_control_auto",
       contentType: "application/json",
       success: function(data) {
       }
@@ -13,7 +16,7 @@ $(function() {
   $("#btnradio2").click(function() {
     $.ajax({
       type: "GET",
-      url: "/api/pump_control_manual",
+      url: base_url + "/api/pump_control_manual",
       contentType: "application/json",
       success: function(data) {
       }
@@ -49,7 +52,7 @@ $(function() {
     }
     $.ajax({
       type: "GET",
-      url: "/api/relay/" + rnum.toString() + "/" + targetstatus,
+      url: base_url + "/api/relay/" + rnum.toString() + "/" + targetstatus,
       contentType: "application/json",
       success: function(data) {
       }
@@ -62,7 +65,7 @@ $(function() {
     // var message = {text: $("#message").val()};
     $.ajax({
       type: "GET",
-      url: "/api/pressure",
+      url: base_url + "/api/pressure",
       contentType: "application/json",
       success: function(data) {
         $("#pressure-display").val(data.pressure.toString());
@@ -81,7 +84,7 @@ $(function() {
   function getStatus() {
     $.ajax({
       type: "GET",
-      url: "/api/status",
+      url: base_url + "/api/status",
       contentType: "application/json",
       success: function(data) {
         $("#status-display").val(data.status.toString());
@@ -92,7 +95,7 @@ $(function() {
   function getMessages() {
     $.ajax({
       type: "GET",
-      url: "/api/messages",
+      url: base_url + "/api/messages",
       success: function(data) {
         var messages = "";
         var last_p_msg = "";
